@@ -1,24 +1,30 @@
-import { ITask } from "@/interface/Task";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 
-type Props = {
-  btn_text: string;
-  tasklist: ITask[];
-  setTasklist: React.Dispatch<React.SetStateAction<ITask[]>>;
-};
+import { ITask } from "@/interface/Task";
 
-const TaskForm = ({ btn_text, tasklist, setTasklist }: Props) => {
+import { addTasks } from "@/slices/tasksSlice";
+
+type Props = { btn_text: string };
+
+const TaskForm = ({ btn_text }: Props) => {
   const [title, setTitle] = useState<string>("");
-  const [dificulty, setDificulty] = useState<number>(0);
+  const [dificulty, setDificulty] = useState<number | null>(null);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!title) return;
+    if (!title || !dificulty) return;
 
     const id = Math.floor(Math.random() * 1000);
+    const newTask: ITask = { id, title, dificulty };
 
-    setTasklist([...tasklist, { id, title, dificulty }]);
+    dispatch(addTasks(newTask));
+
+    setTitle("");
+    setDificulty(null);
   };
 
   return (
@@ -42,7 +48,7 @@ const TaskForm = ({ btn_text, tasklist, setTasklist }: Props) => {
         <input
           type="number"
           min={0}
-          value={dificulty}
+          value={dificulty || ""}
           name="dificulty"
           placeholder="Nível de dificuldade"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>

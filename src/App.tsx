@@ -1,14 +1,8 @@
-import { useState } from "react";
-
-import { ITask } from "@/interface/Task";
-
 import Header from "@/components/Header";
 import TaskForm from "@/components/TaskForm";
-import Tasklist from "@/components/Tasklist";
+import TaskList from "@/components/TaskList";
 
 function App() {
-  const [tasklist, setTasklist] = useState<ITask[]>([]);
-
   return (
     <main>
       <Header />
@@ -18,11 +12,7 @@ function App() {
           Adicione uma tarefa:
         </h2>
 
-        <TaskForm
-          btn_text="Adicionar tarefa"
-          tasklist={tasklist}
-          setTasklist={setTasklist}
-        />
+        <TaskForm btn_text="Adicionar tarefa" />
       </section>
 
       <section className="mt-28">
@@ -30,7 +20,7 @@ function App() {
           Suas tarefas:
         </h2>
 
-        <Tasklist />
+        <TaskList />
       </section>
     </main>
   );

@@ -1,6 +1,6 @@
 import { getTasks } from "@/getters/getTasks";
 
-const Tasklist = () => {
+const TaskList = () => {
   const tasks = getTasks();
 
   return (
@@ -10,4 +10,4 @@ const Tasklist = () => {
   );
 };
 
-export default Tasklist;
+export default TaskList;

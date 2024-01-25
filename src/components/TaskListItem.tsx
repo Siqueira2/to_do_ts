@@ -1,12 +1,15 @@
 import { FaTrashAlt } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 
-type Props = {
-  title: string;
-  dificulty: number | null;
-};
+import { ITask } from "@/interface/Task";
 
-const TaskListItem = ({ title, dificulty }: Props) => {
+import { useDispatch } from "react-redux";
+
+import { removeTask, editTask } from "@/slices/tasksSlice";
+
+const TaskListItem = ({ id, title, dificulty }: ITask) => {
+  const dispatch = useDispatch();
+
   return (
     <li className="bg-purple-300 rounded flex justify-between p-2">
       <div>
@@ -18,13 +21,16 @@ const TaskListItem = ({ title, dificulty }: Props) => {
         </p>
       </div>
 
-      <div className="flex gap-1">
-        <button>
-          <FaEdit />
+      <div className="flex gap-1 items-center text-purple-600">
+        <button className="w-5 h-5 hover:text-purple-700">
+          <FaEdit className="w-full h-full" />
         </button>
 
-        <button>
-          <FaTrashAlt />
+        <button
+          className="w-4 h-5 hover:text-red-700"
+          onClick={() => dispatch(removeTask(id))}
+        >
+          <FaTrashAlt className="w-full h-full" />
         </button>
       </div>
     </li>

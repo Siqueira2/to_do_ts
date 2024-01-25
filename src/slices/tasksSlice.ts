@@ -20,7 +20,7 @@ export const tasksSlice = createSlice({
 
     editTask: (state, action: PayloadAction<ITask>) => {
       state.tasks.map((task: ITask) =>
-        task.id === action.payload.id ? (task = action.payload) : task
+        task.id === action.payload.id ? { ...task, ...action.payload } : task
       );
     },
 

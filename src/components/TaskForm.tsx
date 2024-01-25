@@ -5,9 +5,12 @@ import { ITask } from "@/interface/Task";
 
 import { addTasks } from "@/slices/tasksSlice";
 
-type Props = { btn_text: string };
+type Props = {
+  btn_text: string;
+  updateTask?: CallableFunction;
+};
 
-const TaskForm = ({ btn_text }: Props) => {
+const TaskForm = ({ btn_text, updateTask }: Props) => {
   const [title, setTitle] = useState<string>("");
   const [dificulty, setDificulty] = useState<number | null>(null);
 
@@ -16,12 +19,16 @@ const TaskForm = ({ btn_text }: Props) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!title || !dificulty) return;
+    if (updateTask) {
+      dispatch(updateTask({ title, dificulty }));
+    } else {
+      if (!title || !dificulty) return;
 
-    const id = Math.floor(Math.random() * 1000);
-    const newTask: ITask = { id, title, dificulty };
+      const id = Math.floor(Math.random() * 1000);
+      const newTask: ITask = { id, title, dificulty };
 
-    dispatch(addTasks(newTask));
+      dispatch(addTasks(newTask));
+    }
 
     setTitle("");
     setDificulty(null);

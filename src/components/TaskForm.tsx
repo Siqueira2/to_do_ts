@@ -11,6 +11,7 @@ type Props = {
 };
 
 const TaskForm = ({ btn_text, updateTask }: Props) => {
+  const [id, setId] = useState(0);
   const [title, setTitle] = useState<string>("");
   const [dificulty, setDificulty] = useState<number | null>(null);
 
@@ -35,10 +36,7 @@ const TaskForm = ({ btn_text, updateTask }: Props) => {
   };
 
   return (
-    <form
-      className="flex flex-col gap-2 items-center container"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex flex-col gap-2 items-center" onSubmit={handleSubmit}>
       <label className="w-full">
         <input
           type="text"

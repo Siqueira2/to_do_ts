@@ -6,9 +6,14 @@ import { ITask } from "@/interface/Task";
 import { useDispatch } from "react-redux";
 
 import { removeTask, editTask } from "@/slices/tasksSlice";
+import { open_modal } from "@/slices/modalSlice";
 
 const TaskListItem = ({ id, title, dificulty }: ITask) => {
   const dispatch = useDispatch();
+
+  const handleEdit = () => {
+    return dispatch(open_modal());
+  };
 
   return (
     <li className="bg-purple-300 rounded flex justify-between p-2">
@@ -22,7 +27,7 @@ const TaskListItem = ({ id, title, dificulty }: ITask) => {
       </div>
 
       <div className="flex gap-1 items-center text-purple-600">
-        <button className="w-5 h-5 hover:text-purple-700">
+        <button className="w-5 h-5 hover:text-purple-700" onClick={handleEdit}>
           <FaEdit className="w-full h-full" />
         </button>
 
